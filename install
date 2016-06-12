@@ -1,9 +1,29 @@
 #!/bin/sh
+# Architechture
+
+# Install Ovirt Engine
 yum -y update
-yum install http://plain.resources.ovirt.org/pub/yum-repo/ovirt-release35.rpm
+#yum install http://plain.resources.ovirt.org/pub/yum-repo/ovirt-release35.rpm
+yum install http://plain.resources.ovirt.org/pub/yum-repo/ovirt-release36.rpm
 yum -y install ovirt-engine
 engine-setup
 
+# Ovirt Node Install 
+yum -y localinstall http://plain.resources.ovirt.org/pub/yum-repo/ovirt-release36.rpm
+yum -y install vdsm
+
+# NFS Server Install
+ vi /etc/sysconfig/nfs
+ # add to the end
+NFS4_SUPPORT="no"
+#
+mkdir /var/lib/exports/data 
+chown 36:36 /var/lib/exports/data
+chown vdsm:kvm /var/lib/exports/data
+vi /etc/exports.d/ovirt-engine-iso-domain.exports
+/var/lib/exports/iso    172.16.20.0/24(rw)
+/var/lib/exports/data   172.16.20.0/24(rw)
+systemctl restart rpc-statd nfs-server 
 
 # ISO upload from ovirt-engine
 engine-iso-uploader -u nfs.ipvbd.com --nfs-server=nfs.ipvbd.com:/srv/ovirt/iso/bce5ee08-df87-457e-8145-dbe35619a497/images/11111111-1111-1111-1111-111111111111 upload  /CentOS-7-x86_64-Minimal-1503-01.iso
