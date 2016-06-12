@@ -1,5 +1,9 @@
 #!/bin/sh
 # Architechture
+DNS: ns1.ipvbd.com 172.16.20.9
+Ovirt-Engine: ovirtengine.ipvbd.com 172.16.20.24
+Ovirt-Node(KVm): ovirtnode.ipvbd.com 172.16.20.22
+NFS: nfs.ipvbd.com 172.16.20.23
 
 # Install Ovirt Engine
 yum -y update
@@ -17,12 +21,18 @@ yum -y install vdsm
  # add to the end
 NFS4_SUPPORT="no"
 #
-mkdir /var/lib/exports/data 
-chown 36:36 /var/lib/exports/data
+mkdir /var/lib/exports/data
+mkdir /var/lib/exports/iso
+mkdir /var/lib/exports/export 
+#chown 36:36 /var/lib/exports/data
 chown vdsm:kvm /var/lib/exports/data
+chown vdsm:kvm /var/lib/exports/iso
+chown vdsm:kvm /var/lib/exports/export
+
 vi /etc/exports.d/ovirt-engine-iso-domain.exports
 /var/lib/exports/iso    172.16.20.0/24(rw)
 /var/lib/exports/data   172.16.20.0/24(rw)
+/var/lib/exports/export   172.16.20.0/24(rw)
 systemctl restart rpc-statd nfs-server 
 
 # ISO upload from ovirt-engine
