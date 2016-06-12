@@ -28,7 +28,7 @@ mkdir /var/lib/exports/export
 chown vdsm:kvm /var/lib/exports/data
 chown vdsm:kvm /var/lib/exports/iso
 chown vdsm:kvm /var/lib/exports/export
-
+# Export NFS Share
 vi /etc/exports.d/ovirt-engine-iso-domain.exports
 /var/lib/exports/iso    172.16.20.0/24(rw)
 /var/lib/exports/data   172.16.20.0/24(rw)
