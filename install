@@ -4,6 +4,7 @@ DNS: ns1.ipvbd.com 172.16.20.9
 Ovirt-Engine: ovirtengine.ipvbd.com 172.16.20.24
 Ovirt-Node(KVm): ovirtnode.ipvbd.com 172.16.20.22
 NFS: nfs.ipvbd.com 172.16.20.23
+Client(Desktop): client.ipvbd.com 172.16.20.62
 
 # Install Ovirt Engine
 yum -y update
@@ -37,5 +38,7 @@ systemctl restart rpc-statd nfs-server
 
 # ISO upload from ovirt-engine
 engine-iso-uploader -u nfs.ipvbd.com --nfs-server=nfs.ipvbd.com:/srv/ovirt/iso/bce5ee08-df87-457e-8145-dbe35619a497/images/11111111-1111-1111-1111-111111111111 upload  /CentOS-7-x86_64-Minimal-1503-01.iso
-# SPICE Install
+# SPICE Install on Client Computer
+yum -y install firefox spice-xpi
+# or
 yum install spice-xpi
