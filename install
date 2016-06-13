@@ -47,3 +47,9 @@ engine-iso-uploader -u nfs.ipvbd.com --nfs-server=nfs.ipvbd.com:/srv/ovirt/iso/b
 yum -y install firefox spice-xpi
 # or
 yum install spice-xpi
+#
+#
+# Debugging steps  // NOT NECESSARY HERER
+yum install ovirt-engine-webadmin-portal-debuginfo ovirt-engine-userportal-debuginfo
+
+
