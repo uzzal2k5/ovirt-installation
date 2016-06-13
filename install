@@ -27,18 +27,19 @@ yum -y install spice-server spice-protocol
  # add to the end
 NFS4_SUPPORT="no"
 #
-mkdir /var/lib/exports/data
-mkdir /var/lib/exports/iso
-mkdir /var/lib/exports/export 
-#chown 36:36 /var/lib/exports/data
-chown vdsm:kvm /var/lib/exports/data
-chown vdsm:kvm /var/lib/exports/iso
-chown vdsm:kvm /var/lib/exports/export
+mkdir /var/lib/libvirt/images
+mkdir /var/lib/libvirt/iso
+mkdir /var/lib/libvirt/export 
+#chown 36:36 /var/lib/libvirt/images
+chown vdsm:kvm /var/lib/libvirt/images
+chown vdsm:kvm /var/lib/libvirt/iso
+chown vdsm:kvm /var/lib/libvirt/export
 # Export NFS Share
 vi /etc/exports.d/ovirt-engine-iso-domain.exports
-/var/lib/exports/iso    172.16.20.0/24(rw)
-/var/lib/exports/data   172.16.20.0/24(rw)
-/var/lib/exports/export   172.16.20.0/24(rw)
+/var/lib/libvirt/iso    172.16.20.0/24(rw)
+/var/lib/libvirt/images   172.16.20.0/24(rw)
+/var/lib/libvirt/export   172.16.20.0/24(rw)
+systemctl enable rpc-statd nfs-server 
 systemctl restart rpc-statd nfs-server 
 
 # ISO upload from ovirt-engine
